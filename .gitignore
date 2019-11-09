@@ -1,3 +1,4 @@
 venv/
 .idea/
-client_id.json
+client_secrets.json
+config.yaml
