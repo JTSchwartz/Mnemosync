@@ -1,8 +1,14 @@
+# Root folder in Google Drive that Mnemosync with interact with
 gDrive: "Mnemosync"
+
+# Directories on the local machine that with be synced
 directories: []
-fileExclusions: []
-directoryExclusion: []
+
+# List of Regex strings that Menomsync will exclude if a directory path matches
+directoryExclusions: []
+
+# List of file types that Mnemosync will pass over
 fileTypeExclusions: []
-directoryNameExclusions: []
-prefix: ""
-suffix: ""
+
+# List of Regex strings that Menomsync will exclude if a file name matches
+fileNameExclusions: []
