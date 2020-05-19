@@ -24,3 +24,7 @@ def all_files(subdirectory="root"):
 # def delete_file():
 
 # def rename_file():
+
+
+if __name__ == '__main__':
+	assert False

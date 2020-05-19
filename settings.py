@@ -57,3 +57,7 @@ def load_config(config_file):
 def save_config():
 	with open("config.yaml", 'w') as file:
 		dump(config, file)
+
+
+if __name__ == '__main__':
+	assert False
