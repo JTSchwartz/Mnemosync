@@ -1,8 +1,7 @@
-import re
 from os import walk as traverse
-from queue import Queue
-from threader import SyncManager
+from threader import DirectoryManager, SyncManager
 from file_management import *
+from utils import *
 
 
 def main():
@@ -12,26 +11,22 @@ def main():
 	# if settings.drive is None:
 	# 	print("Err")
 	
-	queue = Queue()
-	# print(all_files())
+	directories = set()
+	
 	for directory in settings.config["directories"]:
-		for dirName, subdirList, fileList in traverse(directory):
-			if test_excluded_paths(dirName):
+		for dir_name, _, _ in traverse(directory):
+			if test_excluded_paths(dir_name):
 				continue
 			
-			queue.put(dirName)
+			directories.add(dir_name)
 			
-	manager = SyncManager(queue)
-	manager.start()
-	manager.join()
-
-
-def test_excluded_paths(path):
-	for exclude in settings.config["directoryExclusions"]:
-		if re.search(exclude, path):
-			return True
+	sync_manager = SyncManager(directories)
+	directory_manager = DirectoryManager(sync_manager, directories)
 	
-	return False
+	managers = [directory_manager, sync_manager]
+	
+	map(lambda thread: thread.start(), managers)
+	map(lambda thread: thread.join(), managers)
 
 
 if __name__ == '__main__':
